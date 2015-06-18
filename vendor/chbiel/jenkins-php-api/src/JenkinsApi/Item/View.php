@@ -14,6 +14,7 @@ use stdClass;
  */
 class View extends AbstractItem
 {
+    public $allJobs;
     /**
      * @var string
      */
@@ -54,7 +55,7 @@ class View extends AbstractItem
     {
         $jobs = array();
         foreach ($this->get('jobs') as $job) {
-            $jobs[] = new Job($job->name, $this);
+            $jobs[] = new Job($job->name, $this->_jenkins);
         }
         return $jobs;
     }
