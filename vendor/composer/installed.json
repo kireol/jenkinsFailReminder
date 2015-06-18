@@ -1,0 +1,42 @@
+[
+    {
+        "name": "chbiel/jenkins-php-api",
+        "version": "0.1.3",
+        "version_normalized": "0.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/chbiel/jenkins-php-api.git",
+            "reference": "d8bd2ee86f79de17c9334b95b6dee6ed42f04410"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/chbiel/jenkins-php-api/zipball/d8bd2ee86f79de17c9334b95b6dee6ed42f04410",
+            "reference": "d8bd2ee86f79de17c9334b95b6dee6ed42f04410",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.4.0"
+        },
+        "time": "2015-06-11 07:33:17",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "JenkinsApi": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "proprietary"
+        ],
+        "authors": [
+            {
+                "name": "Christopher Biel",
+                "email": "christopher.biel89@gmail.com"
+            }
+        ],
+        "description": "Library to control Jenkins via PHP through JSON api",
+        "homepage": "https://github.com/chbiel/jenkins-php-api"
+    }
+]
