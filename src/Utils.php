@@ -1,9 +1,9 @@
 <?php
 
-function getConfigFilePath($HIPSHROOT)
+function getConfigFilePath($PROJROOT)
 {
     GLOBAL $argv;
-    $projectRoot = $HIPSHROOT . "config.yml";
+    $projectRoot = $PROJROOT . "config.yml";
     $userSpecified = $argv[1];
 
     if (file_exists($projectRoot)) {
@@ -22,8 +22,7 @@ function getConfigFilePath($HIPSHROOT)
     }
 }
 
-function getConfig()
+function getConfig($PROJROOT)
 {
-    GLOBAL $HIPSHROOT;
-    return Spyc::YAMLLoad(getConfigFilePath($HIPSHROOT));
+    return Spyc::YAMLLoad(getConfigFilePath($PROJROOT));
 }
