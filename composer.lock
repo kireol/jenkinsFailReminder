@@ -1,0 +1,56 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "2402ba1a874eecaf581269df30c0e986",
+    "packages": [
+        {
+            "name": "chbiel/jenkins-php-api",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chbiel/jenkins-php-api.git",
+                "reference": "d8bd2ee86f79de17c9334b95b6dee6ed42f04410"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chbiel/jenkins-php-api/zipball/d8bd2ee86f79de17c9334b95b6dee6ed42f04410",
+                "reference": "d8bd2ee86f79de17c9334b95b6dee6ed42f04410",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JenkinsApi": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Christopher Biel",
+                    "email": "christopher.biel89@gmail.com"
+                }
+            ],
+            "description": "Library to control Jenkins via PHP through JSON api",
+            "homepage": "https://github.com/chbiel/jenkins-php-api",
+            "time": "2015-06-11 07:33:17"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

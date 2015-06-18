@@ -1,0 +1,5 @@
+{
+    "require": {
+        "chbiel/jenkins-php-api": "^0.1.3"
+    }
+}
