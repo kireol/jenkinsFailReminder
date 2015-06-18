@@ -1,14 +1,2 @@
 ---
 jenkinsserver: 192.168.22.56:8080
-stashserver: http://192.168.1.100/stash
-hipchatrestserver: http://192.168.1.100/stash/rest/api/1.0/projects
-hipchatapitoken: 9as8df798sad7f987xzc89v7fas98d7fr89asdf32
-stashusername: stashuser 
-stashpassword: password123ofcourse 
-hipchatusername: hipchatuser 
-hipchatpassword: password123ofcourse
-
-channels:
-- stashprojectkey: HS 
-  hipchatroom: hipishhipsters
-    alerttimestring: "24 hours ago"
