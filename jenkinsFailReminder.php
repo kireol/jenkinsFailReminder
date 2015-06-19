@@ -10,13 +10,6 @@ $CONFIG = getConfig($PROJROOT);
 
 $channels = $CONFIG['channels'];
 $outputString = "";
-/**
- * @param $view
- * @param $failedJob
- * @param $channel
- * @param $outputString
- * @return string
- */
 
 foreach ($channels as $channel) {
     $hipchat = new Hipchat($channel);
@@ -30,7 +23,7 @@ foreach ($channels as $channel) {
 
     $view = $jenkins->getView($viewToWatch);
 
-    $outputString = getBrokenBuildOutputText($view, $failedJob, $channel, $outputString);
+    $outputString = getBrokenBuildOutputText($view, $jenkins, $channel, $outputString);
 
     if (strlen($outputString) > 0) {
         $outputString = getGreeting() . "\n" . $outputString;
@@ -38,14 +31,16 @@ foreach ($channels as $channel) {
     }
 }
 
-function getBrokenBuildOutputText($view, $failedJob, $channel, $outputString)
+function getBrokenBuildOutputText($view, $jenkins, $channel, $outputString)
 {
     foreach ($view->allJobs as $job) {
         if ($job->buildable == true) {
             if (strcmp($job->color, "red") == 0) {
+                $failedJob = $jenkins->getJob($job->name);
                 if ($failedJob->builds[0]->timestamp / 1000 < strtotime($channel['alerttimestring'])) {
                     $outputString .= $job->name . " appears to have been broken since " .
-                        getPrettyDateFromTimestamp($failedJob->builds[0]->timestamp / 1000) . "\n";
+                        getPrettyDateFromTimestamp($failedJob->builds[0]->timestamp / 1000) . " " .
+                        $job->url . "\n";
                 }
             }
         }
