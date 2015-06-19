@@ -30,8 +30,8 @@ class Hipchat
 
     function postInHipChat($message)
     {
-        $auth = new OAuth2($this->channel['hipchatapitoken']);
-        $client = new Client($auth);
+        $auth = new \GorkaLaucirica\HipchatAPIv2Client\Auth\OAuth2($this->channel['hipchatapitoken']);
+        $client = new \GorkaLaucirica\HipchatAPIv2Client\Client($auth);
         $hipchatRoomAPI = new \GorkaLaucirica\HipchatAPIv2Client\API\RoomAPI($client);
         $hipchatRoomId = $this->getHipchatRoomId($hipchatRoomAPI);
         $hipchatRoomAPI->sendRoomNotification($hipchatRoomId, $this->getMessageObject($message));
