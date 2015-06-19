@@ -23,8 +23,10 @@ foreach($channels as $channel){
     foreach ($view->allJobs as $job) {
         if($job->buildable == true){
             if(strcmp($job->color, "red") == 0){
-                echo "Found failed job: " . $job->name . "\n";
+                echo "Found failed job: " . $job->name;
                 $failedJob = $jenkins->getJob($job->name);
+                echo " last ran at: " .
+                    getPrettyDateFromTimestamp($failedJob->builds[0]->timestamp/1000) . "\n";
                 if($failedJob->builds[0]->timestamp/1000 < strtotime($channel['alerttimestring'])){
                     echo $job->name . " is over an hour old\n";
                 }
