@@ -31,7 +31,7 @@ foreach ($channels as $channel) {
     }
 }
 
-function getBrokenBuildOutputText($view, $jenkins, $channel, $outputString)
+function getBrokenBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel, $outputString)
 {
     foreach ($view->allJobs as $job) {
         if ($job->buildable == true) {
