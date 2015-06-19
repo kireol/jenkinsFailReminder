@@ -1,2 +1,12 @@
 ---
-jenkinsserver: 192.168.22.56:8080
+channels:
+  - jenkinsserver: http://192.168.22.56:8080
+    jenkinsview: Android
+    hipchatroom: "AndroidChat"
+    alerttimestring: "-1 hour"
+    output: hipchat
+    hipchatrestserver: https://your.hipchat.com/chat
+    hipchatapitoken: asdfasdfsadfdsafdsafasdfasdfadfs
+    hipchatusername: yourusername
+    hipchatpassword: yourpw
+    hipchattextcolor: red
