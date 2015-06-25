@@ -39,7 +39,7 @@ function getRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Jenk
 {
     foreach ($view->allJobs as $job) {
         if ($job->buildable == true) {
-            echo "Checking job : " . $job->name . "with color: " . $job->color . "\n";
+            echo "Checking job : " . $job->name . " with color: " . $job->color . "\n";
             if (strcmp($job->color, "red") == 0) {
                 $succeededJob = $jenkins->getJob($job->name);
                 if (hasColorChangedSinceLastRun($succeededJob, $previousRun)) {
@@ -92,6 +92,7 @@ function hasColorChangedSinceLastRun($job, $previousRun)
 
 function getPreviousRunData($channel)
 {
+    echo "Loading previous run file: " . $channel['persistedDataFile'] . "\n";
     $previousRun = null;
     if (file_exists($channel['persistedDataFile'])) {
         $previousRun = file_get_contents($channel['persistedDataFile']);
@@ -104,6 +105,8 @@ function getPreviousRunData($channel)
 
 function saveCurrentState($view, $channel)
 {
+    echo "Saving previous run file: " . $channel['persistedDataFile'] . "\n";
+
     if (count($view->allJobs) > 0) {
         file_put_contents($channel['persistedDataFile'], json_encode($view->allJobs));
     }
