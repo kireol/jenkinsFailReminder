@@ -28,7 +28,6 @@ foreach ($channels as $channel) {
     saveCurrentState($view, $channel);
 
     printRecentlyBrokenOrBackToSuccessBuildOutputText($view, $jenkins, $channel, $outputString, $previousRun, $hipchat);
-
 }
 
 function printRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel, $outputString, $previousRun, $hipchat)
@@ -90,8 +89,8 @@ function hasColorChangedSinceLastRun($job, $previousRun)
         }
     }
 
-    //we have no previous, so assume it's new
-    return true;
+    //we have no previous, so assume it's not new
+    return false;
 }
 
 function getPreviousRunData($channel)
