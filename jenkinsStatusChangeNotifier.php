@@ -34,12 +34,14 @@ foreach ($channels as $channel) {
 function printRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel, $outputString, $previousRun, $hipchat)
 {
     foreach ($view->allJobs as $job) {
+        $color = "";
         if ($job->buildable == true) {
             echo "Checking job : " . $job->name . " with color: " . $job->color . "\n";
             if (strcmp($job->color, "red") == 0) {
                 $succeededJob = $jenkins->getJob($job->name);
                 if (hasColorChangedSinceLastRun($succeededJob, $previousRun)) {
                     if ($succeededJob->builds[0]->timestamp / 1000 < strtotime($channel['alerttimestring'])) {
+                        $color = "red";
                         $outputString .= "<a target=\"_blank\" href = \"" . $job->url . "\">" . $job->name .
                             "</a> has failed to build. \n";
                     }
@@ -48,6 +50,7 @@ function printRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Je
                 $succeededJob = $jenkins->getJob($job->name);
                 if (hasColorChangedSinceLastRun($succeededJob, $previousRun)) {
                     if ($succeededJob->builds[0]->timestamp / 1000 < strtotime($channel['alerttimestring'])) {
+                        $color = "green";
                         $outputString .= "<a target=\"_blank\" href = \"" . $job->url . "\">" . $job->name .
                             "</a> back to successful build\n";
                     }
@@ -59,7 +62,7 @@ function printRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Je
         }
         if (strlen($outputString) > 0) {
             $outputString = getGreeting() . "\n" . $outputString;
-            $hipchat->postOutput($outputString);
+            $hipchat->postOutputWithColor($outputString, $color);
             $outputString = "";
         }
 
