@@ -27,15 +27,11 @@ foreach ($channels as $channel) {
 
     saveCurrentState($view, $channel);
 
-    $outputString = getRecentlyBrokenOrBackToSuccessBuildOutputText($view, $jenkins, $channel, $outputString, $previousRun);
+    printRecentlyBrokenOrBackToSuccessBuildOutputText($view, $jenkins, $channel, $outputString, $previousRun, $hipchat);
 
-    if (strlen($outputString) > 0) {
-        $outputString = getGreeting() . "\n" . $outputString;
-        $hipchat->postOutput($outputString);
-    }
 }
 
-function getRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel, $outputString, $previousRun)
+function printRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel, $outputString, $previousRun, $hipchat)
 {
     foreach ($view->allJobs as $job) {
         if ($job->buildable == true) {
@@ -61,8 +57,13 @@ function getRecentlyBrokenOrBackToSuccessBuildOutputText($view, \JenkinsApi\Jenk
         else{
             echo "Skipping unbuildable: " . $job->name . "\n";
         }
+        if (strlen($outputString) > 0) {
+            $outputString = getGreeting() . "\n" . $outputString;
+            $hipchat->postOutput($outputString);
+            $outputString = "";
+        }
+
     }
-    return $outputString;
 }
 
 function hasColorChangedSinceLastRun($job, $previousRun)
