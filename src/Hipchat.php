@@ -4,6 +4,7 @@ use GorkaLaucirica\HipchatAPIv2Client\Client;
 
 class Hipchat
 {
+    private $color = null;
     const MILLISECONDS = 1000;
 
     public function __construct($channel)
@@ -15,9 +16,25 @@ class Hipchat
     {
         $message = new \GorkaLaucirica\HipchatAPIv2Client\Model\Message();
         $message->setMessage($messageText);
-        $message->setColor($this->channel['hipchattextcolor']);
+        if ($this->color == null) {
+            $message->setColor($this->channel['hipchattextcolor']);
+        }else{
+            $message->setColor($this->color);
+            $this->color = null;
+        }
         $message->setMessageFormat("html");
         return $message;
+    }
+
+    function postOutputWithColor($outputString, $color)
+    {
+        $this->color = $color;
+        if (strcmp($this->channel['output'], "console") == 0) {
+            echo $outputString;
+        } else {
+            $outputString = $this->convertNewLineToBr($outputString);
+            $this->postInHipChat($outputString);
+        }
     }
 
     function postOutput($outputString)
