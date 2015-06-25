@@ -11,17 +11,6 @@ $CONFIG = getConfig($PROJROOT);
 $channels = $CONFIG['channels'];
 $outputString = "";
 
-/**
- * @param $view
- * @param $channel
- */
-function saveCurrentState($view, $channel)
-{
-    if (count($view->allJobs) > 0) {
-        file_put_contents($channel['persistedDataFile'], json_encode($view->allJobs));
-    }
-}
-
 foreach ($channels as $channel) {
     $previousRun = getPreviousRunData($channel);
 
@@ -111,4 +100,11 @@ function getPreviousRunData($channel)
         }
     }
     return $previousRun;
+}
+
+function saveCurrentState($view, $channel)
+{
+    if (count($view->allJobs) > 0) {
+        file_put_contents($channel['persistedDataFile'], json_encode($view->allJobs));
+    }
 }
