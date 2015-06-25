@@ -35,7 +35,6 @@ function getBrokenBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel,
 {
     foreach ($view->allJobs as $job) {
         if ($job->buildable == true) {
-//            echo $job->color . " : " . $job->name . "\n";
             if (strcmp($job->color, "red") == 0) {
                 $failedJob = $jenkins->getJob($job->name);
                 if ($failedJob->builds[0]->timestamp / 1000 < strtotime($channel['alerttimestring'])) {
