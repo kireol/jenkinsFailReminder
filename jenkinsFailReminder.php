@@ -38,7 +38,7 @@ function getBrokenBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel,
             if (strcmp($job->color, "red") == 0) {
                 $failedJob = $jenkins->getJob($job->name);
                 if ($failedJob->builds[0]->timestamp / 1000 < strtotime($channel['alerttimestring'])) {
-                    $outputString .= "<a target=\"_blank\" href = \"" . $job->url . "\">" . $job->name .
+                    $outputString .= "<a href=\"" . $job->url . "\">" . $job->name .
                         "</a> appears to have been broken since " .
                         getPrettyDateFromTimestamp($failedJob->builds[0]->timestamp / 1000) . " " . "\n";
                 }
