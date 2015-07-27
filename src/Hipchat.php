@@ -43,7 +43,10 @@ class Hipchat
             echo $outputString;
         } else {
             $outputString = $this->convertNewLineToBr($outputString);
-            $this->postInHipChat($outputString);
+            if (!$this->wasLastMessageTheSameAsThisMessage($outputString))
+            {
+              $this->postInHipChat($outputString);
+            }
         }
     }
 
@@ -69,9 +72,19 @@ class Hipchat
 
     function convertNewLineToBr($in)
     {
-        return str_replace("\n", "<br/>", $in);
+        return str_replace("\n", "<br />", $in);
     }
 
+    function wasLastMessageTheSameAsThisMessage($message)
+    {
+      $auth = new OAuth2($this->channel['hipchatapitoken']);
+      $client = new Client($auth);
+      $hipchatRoomAPI = new \GorkaLaucirica\HipchatAPIv2Client\API\RoomAPI($client);
+      $hipchatRoomId = $this->getHipchatRoomId($hipchatRoomAPI);
+      $lastMessages = $hipchatRoomAPI->getRecentHistory($hipchatRoomId);
+      $lastMessage = end($lastMessages);
+      return $lastMessage->getMessage() === $message;
+    }
 }
 
 function titleCompare($a, $b)
