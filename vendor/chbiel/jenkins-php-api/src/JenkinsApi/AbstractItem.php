@@ -38,7 +38,6 @@ abstract class AbstractItem
     public function refresh()
     {
         $this->_data = $this->getJenkins()->get($this->getUrl());
-        $this->allJobs = $this->_data->jobs;
         return $this;
     }
 
