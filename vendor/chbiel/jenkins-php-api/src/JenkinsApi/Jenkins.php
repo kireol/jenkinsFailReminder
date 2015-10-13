@@ -133,11 +133,12 @@ class Jenkins
      * @param int    $depth
      * @param array  $params
      * @param array  $curlOpts
+     * @param bool   $raw
      *
      * @throws RuntimeException
      * @return stdClass
      */
-    public function get($url, $depth = 1, $params = array(), array $curlOpts = [])
+    public function get($url, $depth = 1, $params = array(), array $curlOpts = [], $raw = false)
     {
 //        $url = str_replace(' ', '%20', sprintf('%s' . $url . '?depth=' . $depth, $this->_baseUrl));
         $url = sprintf('%s', $this->_baseUrl) . $url . '?depth=' . $depth;
@@ -157,11 +158,20 @@ class Jenkins
         $response_info = curl_getinfo($curl);
 
         if (200 != $response_info['http_code']) {
-            throw new RuntimeException(sprintf('Error during getting information from url %s', $url));
+            throw new RuntimeException(
+                sprintf(
+                    'Error during getting information from url %s (Response: %s)', $url, $response_info['http_code']
+                )
+            );
         }
 
         if (curl_errno($curl)) {
-            throw new RuntimeException(sprintf('Error during getting information from url %s', $url));
+            throw new RuntimeException(
+                sprintf('Error during getting information from url %s (%s)', $url, curl_error($curl))
+            );
+        }
+        if ($raw) {
+            return $ret;
         }
         $data = json_decode($ret);
         if (!$data instanceof stdClass) {
@@ -173,13 +183,13 @@ class Jenkins
 
     /**
      * @param string $url
-     * @param array  $parameters
+     * @param array|string  $parameters
      * @param array  $curlOpts
      *
      * @throws RuntimeException
      * @return bool
      */
-    public function post($url, array $parameters = [], array $curlOpts = [])
+    public function post($url, $parameters = [], array $curlOpts = [])
     {
         $url = sprintf('%s', $this->_baseUrl) . $url;
 
@@ -188,7 +198,10 @@ class Jenkins
             curl_setopt_array($curl, $curlOpts);
         }
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($parameters));
+        if(is_array($parameters)) {
+            $parameters = http_build_query($parameters);
+        }
+        curl_setopt($curl, CURLOPT_POSTFIELDS,$parameters);
 
         $headers = (isset($curlOpts[CURLOPT_HTTPHEADER])) ? $curlOpts[CURLOPT_HTTPHEADER] : array();
 
@@ -298,10 +311,12 @@ class Jenkins
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $ret = curl_exec($curl);
 
-        $errorMessage = sprintf('Error during getting all currently building jobs on %s', $this->_baseUrl);
-
         if (curl_errno($curl)) {
-            throw new RuntimeException($errorMessage);
+            throw new RuntimeException(
+                sprintf(
+                    'Error during getting all currently building jobs on %s (%s)', $this->_baseUrl, curl_error($curl)
+                )
+            );
         }
         $xml = simplexml_load_string($ret);
         $builds = $xml->xpath('/jobs');
@@ -371,7 +386,7 @@ class Jenkins
             throw new InvalidArgumentException(sprintf('Job %s already exists', $jobname));
         }
         if (curl_errno($curl)) {
-            throw new RuntimeException(sprintf('Error creating job %s', $jobname));
+            throw new RuntimeException(sprintf('Error creating job %s (%s)', $jobname, curl_error($curl)));
         }
     }
 

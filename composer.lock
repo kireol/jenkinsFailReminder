@@ -5,19 +5,20 @@
         "This file is @generated automatically"
     ],
     "hash": "b2b2a318c5050b311fe2ab80a2046e4d",
+    "content-hash": "06d3be3d50990e5bd5b8e4aea6e90031",
     "packages": [
         {
             "name": "chbiel/jenkins-php-api",
-            "version": "0.1.3",
+            "version": "0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chbiel/jenkins-php-api.git",
-                "reference": "d8bd2ee86f79de17c9334b95b6dee6ed42f04410"
+                "reference": "60e086adcbf7ad6be2f481a869e7198199aacfdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chbiel/jenkins-php-api/zipball/d8bd2ee86f79de17c9334b95b6dee6ed42f04410",
-                "reference": "d8bd2ee86f79de17c9334b95b6dee6ed42f04410",
+                "url": "https://api.github.com/repos/chbiel/jenkins-php-api/zipball/60e086adcbf7ad6be2f481a869e7198199aacfdd",
+                "reference": "60e086adcbf7ad6be2f481a869e7198199aacfdd",
                 "shasum": ""
             },
             "require": {
@@ -42,21 +43,21 @@
             ],
             "description": "Library to control Jenkins via PHP through JSON api",
             "homepage": "https://github.com/chbiel/jenkins-php-api",
-            "time": "2015-06-11 07:33:17"
+            "time": "2015-08-29 12:30:20"
         },
         {
             "name": "gorkalaucirica/hipchat-v2-api-client",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "target-dir": "GorkaLaucirica/HipchatAPIv2Client",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gorkalaucirica/HipchatAPIv2Client.git",
-                "reference": "43bdfd4cec1b4134f33627b14d038a985626efdd"
+                "reference": "30ebdd77cca56e18afa41491eb62616486e076d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gorkalaucirica/HipchatAPIv2Client/zipball/43bdfd4cec1b4134f33627b14d038a985626efdd",
-                "reference": "43bdfd4cec1b4134f33627b14d038a985626efdd",
+                "url": "https://api.github.com/repos/gorkalaucirica/HipchatAPIv2Client/zipball/30ebdd77cca56e18afa41491eb62616486e076d2",
+                "reference": "30ebdd77cca56e18afa41491eb62616486e076d2",
                 "shasum": ""
             },
             "require": {
@@ -93,7 +94,7 @@
                 "library",
                 "v2"
             ],
-            "time": "2015-04-11 10:35:18"
+            "time": "2015-10-08 21:36:23"
         },
         {
             "name": "kriswallsmith/buzz",

@@ -224,7 +224,7 @@ class Build extends AbstractItem
      */
     public function getConsoleTextBuild()
     {
-        return $this->getJenkins()->get(sprintf('job/%s/%s/consoleText', $this->_jobName, $this->_buildNumber));
+        return $this->getJenkins()->get(sprintf('job/%s/%s/consoleText', $this->_jobName, $this->_buildNumber), 1, array(), array(), true);
     }
 
     /**
@@ -257,5 +257,19 @@ class Build extends AbstractItem
     public function getBuildUrl()
     {
         return $this->get('url');
+    }
+
+    /**
+     * @return bool
+     */
+    public function stop()
+    {
+        if (!$this->isBuilding()) {
+            return null;
+        }
+
+        return $this->getJenkins()->post(
+            sprintf('job/%s/%d/stop', $this->_jobName, $this->_buildNumber)
+        );
     }
 }
