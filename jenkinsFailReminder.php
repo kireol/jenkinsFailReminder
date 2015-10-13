@@ -33,7 +33,7 @@ foreach ($channels as $channel) {
 
 function getBrokenBuildOutputText($view, \JenkinsApi\Jenkins $jenkins, $channel, $outputString)
 {
-    foreach ($view->allJobs as $job) {
+    foreach ($view->jobs as $job) {
         if ($job->buildable == true) {
             if (strcmp($job->color, "red") == 0) {
                 $failedJob = $jenkins->getJob($job->name);
